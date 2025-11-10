@@ -247,5 +247,21 @@ def download_media(message_id: str, chat_jid: str) -> Dict[str, Any]:
         }
 
 if __name__ == "__main__":
-    # Initialize and run the server
-    mcp.run(transport='stdio')
+    import sys
+    import os
+
+    # Check if --sse flag is provided for HTTP/SSE transport (for remote hosting)
+    # Otherwise use stdio transport (for Claude Desktop)
+    if "--sse" in sys.argv:
+        # Set environment variables for SSE transport configuration
+        os.environ['MCP_HOST'] = '0.0.0.0'
+        os.environ['MCP_PORT'] = '8000'
+
+        print("🚀 Starting MCP server with SSE transport on http://0.0.0.0:8000")
+        print("📡 LLMs can connect to this server remotely")
+        print("📡 SSE endpoint: http://localhost:8000/sse")
+        mcp.run(transport='sse')
+    else:
+        print("🚀 Starting MCP server with stdio transport")
+        print("📡 For Claude Desktop/Cursor integration")
+        mcp.run(transport='stdio')
