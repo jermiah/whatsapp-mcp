@@ -4,7 +4,9 @@
 *.db-wal
 
 # Store directory - contains WhatsApp session data and messages
+store/
 whatsapp-bridge/store/
+**/store/
 **/store/*.db
 **/store/*.log
 
@@ -43,7 +45,6 @@ ENV/
 env/
 
 # Go
-whatsapp-bridge/whatsapp-bridge
 whatsapp-bridge/whatsapp-bridge.exe
 
 # IDE
